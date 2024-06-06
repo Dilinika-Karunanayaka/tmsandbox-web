@@ -21,7 +21,8 @@ public class ConfigManager {
     }
 
     public static String getConfig(String key) {
-        log.info("ConfigManager.getConfig(" + key + ")");
-        return config.getProperty(key);
+        String value = config.getProperty(key);
+        log.info("ConfigManager.getConfig(" + key + ") => " + value);
+        return value;
     }
 }

@@ -34,6 +34,7 @@
 > -  mvn clean test
 > -  mvn clean test -Penv.trademe,browser.firefox
 >  - **Note** - Maven Profile 'env.tmsandbox' & 'browser.chrome' is enabled by default
+>  - https://youtu.be/Iu77TKlkoGI
 
 ## Test Reports
 > - Default Cucumber report - target/cucumber-reports/Cucumber.html

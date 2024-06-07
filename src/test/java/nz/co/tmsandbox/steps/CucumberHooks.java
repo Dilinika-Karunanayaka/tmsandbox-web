@@ -41,7 +41,7 @@ public class CucumberHooks {
     @After()
     public void closeBrowser() {
         log.info("CucumberHooks.After");
-        driver.quit();
+        scenarioContext.getDriver().quit();
     }
 
     @AfterAll

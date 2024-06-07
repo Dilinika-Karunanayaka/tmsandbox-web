@@ -15,6 +15,9 @@ public class AllCategoriesPage extends BasePage{
     @FindBy(xpath = "//button[@aria-label='Search all of Trade Me']")
     private WebElement searchButton;
 
+    @FindBy(xpath = "//*[contains(concat(' ', @class, ' '), ' tm-search-header-result-count__heading ng-star-inserted ')]")
+    private WebElement headerInformation;
+
     public AllCategoriesPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
@@ -22,5 +25,9 @@ public class AllCategoriesPage extends BasePage{
 
     public String getTitle() {
         return getTitle("for sale | Trade Me");
+    }
+
+    public  String getHeaderInformation(){
+        return headerInformation.getText();
     }
 }

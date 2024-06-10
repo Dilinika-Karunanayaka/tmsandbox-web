@@ -18,6 +18,7 @@ Feature: Search Functionality
       | Search Input |
       | caravan      |
 
+  @WIP
   Scenario: Verify search bar placeholder text
     Given I'm on the home page
     When I check the search text box

@@ -69,7 +69,6 @@ public class WebDriverFactory {
             log.info("Setting proxy: " + proxyServer);
             Proxy proxy = new Proxy();
             proxy.setHttpProxy(proxyServer);
-            proxy.setHttpProxy(proxyServer);
             if (options instanceof ChromeOptions) {
                 ((ChromeOptions) options).setCapability("proxy", proxy);
             } else if (options instanceof FirefoxOptions) {

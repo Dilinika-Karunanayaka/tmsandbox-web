@@ -22,7 +22,7 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//button[@aria-label='Search all of Trade Me']")
     private WebElement searchButton;
 
-    @FindBy(xpath = ".//span[contains(@class, 'tm-global-search__search-suggestions-link-text')]")
+    @FindBy(xpath = "//a[contains(@class, 'tm-global-search__search-suggestions-link')]")
     private List<WebElement> suggestionsList;
 
     public HomePage(WebDriver driver) {
@@ -47,7 +47,7 @@ public class HomePage extends BasePage {
     public HomePage enterSearchText(String query) {
         log.info("Enter Search String: " + query);
         search.sendKeys(query);
-        return new HomePage(driver);
+        return this;
     }
 
     public String getPlaceHolderText() {

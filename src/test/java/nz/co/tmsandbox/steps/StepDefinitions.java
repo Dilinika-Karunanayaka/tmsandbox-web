@@ -7,6 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import nz.co.tmsandbox.pages.AllCategoriesPage;
 import nz.co.tmsandbox.pages.HomePage;
 import nz.co.tmsandbox.util.ScenarioContext;
+import org.openqa.selenium.WebDriver;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.containsStringIgnoringCase;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 @Log4j2
 public class StepDefinitions {
@@ -24,8 +26,9 @@ public class StepDefinitions {
     private long endTime;
 
     public StepDefinitions(ScenarioContext scenarioContext) {
-        homePage = new HomePage(scenarioContext.getDriver());
-        allCategoriesPage = new AllCategoriesPage(scenarioContext.getDriver());
+        WebDriver driver = scenarioContext.getDriver();
+        homePage = new HomePage(driver);
+        allCategoriesPage = new AllCategoriesPage(driver);
     }
 
     @Given("I'm on the home page")
@@ -99,14 +102,16 @@ public class StepDefinitions {
     public void i_perform_a_search_for(String searchString) {
         startTime = System.currentTimeMillis();
         homePage.search(searchString);
-        endTime = System.currentTimeMillis();
+
     }
 
-    @Then("I should see search results {string}")
-    public void i_should_see_search_results(String searchString) {
+    @Then("I should see search results {string} less than {int} milliseconds")
+    public void i_should_see_search_results_less_than_milliseconds(String searchString, int expectedTime) {
         assertThat(allCategoriesPage.getHeaderInformation(), containsString(searchString));
+        endTime = System.currentTimeMillis();
         long duration = endTime - startTime;
         log.info("Search results displayed in: " + duration + " milliseconds");
+        assertTrue(duration < expectedTime, "Search results were not displayed within the expected time frame");
     }
 
     @When("I type {string} in the search box")
@@ -116,12 +121,13 @@ public class StepDefinitions {
         homePage.waitForSuggestionsToAppear();
         List<String> suggestionList = homePage.getSuggestionList();
         assertTrue(homePage.getSuggestionList().size() > 0);
+        endTime = System.currentTimeMillis();
     }
 
-    @Then("I should see search suggestions")
-    public void i_should_see_search_suggestions() {
-        endTime = System.currentTimeMillis();
+    @Then("I should see search suggestions list in {int} milliseconds")
+    public void iShouldSeeSearchSuggestionsListInMilliseconds(int expectedTime) {
         long duration = endTime - startTime;
         log.info("Search suggestions displayed in: " + duration + " milliseconds");
+        assertTrue(duration < expectedTime, "Search results were not displayed within the expected time frame");
     }
 }
